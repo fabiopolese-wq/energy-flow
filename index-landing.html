@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just Move In - Flow Scenarios</title>
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+  <div class="landing-container">
+    <!-- Header -->
+    <header class="landing-header">
+      <div class="brand-logo">
+        <h1>Just Move In</h1>
+        <p class="tagline">Choose your user journey scenario</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="scenarios-grid">
+      <h2 class="scenarios-title">Select a User Flow Scenario</h2>
+      
+      <!-- Standard New Customer Section -->
+      <section class="scenario-section">
+        <h3 class="section-title">Standard new customer, new property</h3>
+        <div class="scenario-cards">
+          <!-- Scenario 1: OVO Journey -->
+          <div class="scenario-card">
+            <div class="scenario-icon ovo-logo">ovo</div>
+            <h3 class="scenario-title">OVO Journey</h3>
+            <p class="scenario-description">
+              Complete marketplace browsing → detailed comparison → checkout → success modal → subscriptions
+            </p>
+            <div class="scenario-features">
+              <span class="feature-tag">Full Flow</span>
+              <span class="feature-tag">OVO Branding</span>
+            </div>
+            <button class="scenario-btn primary" data-scenario="standard">
+              Start OVO Flow
+            </button>
+          </div>
+
+          <!-- Scenario 2: E.ON Journey -->
+          <div class="scenario-card">
+            <div class="scenario-icon eon-logo">e.on</div>
+            <h3 class="scenario-title">E.ON Journey</h3>
+            <p class="scenario-description">
+              Complete marketplace browsing → detailed comparison → checkout → success modal → subscriptions
+            </p>
+            <div class="scenario-features">
+              <span class="feature-tag">Full Flow</span>
+              <span class="feature-tag">E.ON Branding</span>
+            </div>
+            <button class="scenario-btn secondary" data-scenario="eon">
+              Start E.ON Flow
+            </button>
+          </div>
+
+          <!-- Scenario 3: British Gas Journey -->
+          <div class="scenario-card">
+            <div class="scenario-icon bg-logo">BG</div>
+            <h3 class="scenario-title">British Gas Journey</h3>
+            <p class="scenario-description">
+              Complete marketplace browsing → detailed comparison → checkout → success modal → subscriptions
+            </p>
+            <div class="scenario-features">
+              <span class="feature-tag">Full Flow</span>
+              <span class="feature-tag">BG Branding</span>
+            </div>
+            <button class="scenario-btn tertiary" data-scenario="bg">
+              Start BG Flow
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <p>&copy; 2025 Just Move In. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="landing.js"></script>
+</body>
+</html>

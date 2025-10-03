@@ -1,0 +1,395 @@
+/* Landing Page Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #1f2937;
+}
+
+.landing-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.landing-header {
+  text-align: center;
+  padding: 60px 0 40px 0;
+}
+
+.brand-logo h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tagline {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+/* Main Content */
+.scenarios-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Scenario Sections */
+.scenario-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  text-align: left;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scenarios-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Scenario Cards */
+.scenario-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: nowrap;
+}
+
+.scenario-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1;
+  max-width: calc(33.333% - 14px);
+}
+
+.scenario-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scenario-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.scenario-card:hover::before {
+  opacity: 1;
+}
+
+.scenario-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.scenario-icon.ovo-logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #10b981;
+  text-transform: lowercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: inline-block;
+}
+
+.scenario-icon.eon-logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ef4444;
+  text-transform: lowercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: inline-block;
+}
+
+.scenario-icon.bg-logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e40af;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+  background: rgba(30, 64, 175, 0.1);
+  border: 2px solid rgba(30, 64, 175, 0.3);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: inline-block;
+}
+
+.scenario-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.scenario-description {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.scenario-features {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.feature-tag {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Scenario Buttons */
+.scenario-btn {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: none;
+}
+
+.scenario-btn.primary {
+  background: #6366f1;
+  color: white;
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+}
+
+.scenario-btn.primary:hover {
+  background: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(99, 102, 241, 0.4);
+}
+
+.scenario-btn.secondary {
+  background: #10b981;
+  color: white;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.scenario-btn.secondary:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
+}
+
+.scenario-btn.tertiary {
+  background: #f59e0b;
+  color: white;
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.scenario-btn.tertiary:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(245, 158, 11, 0.4);
+}
+
+.scenario-btn.accent {
+  background: #ec4899;
+  color: white;
+  box-shadow: 0 4px 8px rgba(236, 72, 153, 0.3);
+}
+
+.scenario-btn.accent:hover {
+  background: #db2777;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(236, 72, 153, 0.4);
+}
+
+/* Info Section */
+.info-section {
+  margin-top: 20px;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.info-card p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.scenario-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.scenario-list li {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+  padding: 8px 0;
+}
+
+.scenario-list strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Footer */
+.landing-footer {
+  text-align: center;
+  padding: 40px 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .landing-container {
+    padding: 0 16px;
+  }
+  
+  .landing-header {
+    padding: 40px 0 30px 0;
+  }
+  
+  .brand-logo h1 {
+    font-size: 36px;
+  }
+  
+  .scenarios-title {
+    font-size: 24px;
+  }
+  
+  .scenario-cards {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  
+  .scenario-card {
+    padding: 16px 12px;
+    max-width: calc(33.333% - 8px);
+  }
+  
+  .scenario-title {
+    font-size: 16px;
+  }
+  
+  .scenario-description {
+    font-size: 12px;
+  }
+  
+  .scenario-icon {
+    font-size: 28px;
+  }
+  
+  .scenario-icon.ovo-logo,
+  .scenario-icon.eon-logo,
+  .scenario-icon.bg-logo {
+    font-size: 24px;
+    padding: 8px 12px;
+  }
+  
+  .info-card {
+    padding: 24px;
+  }
+  
+  .scenario-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo h1 {
+    font-size: 28px;
+  }
+  
+  .tagline {
+    font-size: 16px;
+  }
+  
+  .scenarios-title {
+    font-size: 20px;
+  }
+  
+  .scenario-icon {
+    font-size: 36px;
+  }
+  
+  .scenario-title {
+    font-size: 20px;
+  }
+}

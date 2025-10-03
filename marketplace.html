@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace - Just Move In</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="marketplace.css">
+</head>
+<body>
+  <div class="page-layout">
+    <!-- Sidebar (reused component) -->
+    <aside class="sidebar">
+      <div class="brand">Just Move In</div>
+      <nav class="icons">
+        <button aria-label="Home" class="icon" id="homeBtn">🏠</button>
+        <button aria-label="Marketplace" class="icon active" id="marketplaceBtn">🛒</button>
+        <button aria-label="Subscriptions" class="icon" id="subscriptionsBtn">📋</button>
+        <button aria-label="Help" class="icon">❓</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="icon">👤</button>
+        <button class="icon">⚙️</button>
+        <button class="icon">▶️</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Page Header (same component as main page) -->
+      <header class="page-header">
+        <h1>Marketplace</h1>
+        <p class="subtitle">Compare providers, get quotes, find the best deals.</p>
+        <div class="pill-row">
+          <span class="pill">Bundles</span>
+          <span class="pill pill-active">Energy</span>
+          <span class="pill">Broadband</span>
+          <span class="pill">Insurance</span>
+          <span class="pill">Removals</span>
+        </div>
+      </header>
+
+      <!-- Property Details Card (includes current provider) -->
+      <section class="property-card card">
+        <div class="card-header">
+          <h2 class="card-title">Property details</h2>
+          <div class="usage-indicator">
+            <span class="usage-label">Low usage</span>
+            <button class="usage-tooltip-trigger" data-tooltip="low-usage">ℹ️</button>
+          </div>
+        </div>
+        
+        <div class="property-info">
+          <div class="property-details-single-row">
+            <div class="property-field">
+              <label class="field-label">Address</label>
+              <span class="field-value">6 Heron Rd</span>
+            </div>
+            <div class="property-field">
+              <label class="field-label">Smart meter type:</label>
+              <span class="field-value">SMETS1</span>
+            </div>
+            <div class="property-field">
+              <label class="field-label">Smart meter S/N:</label>
+              <span class="field-value">0899887-988878</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="provider-section">
+          <h3 class="provider-section-title">Current Provider</h3>
+          <div class="provider-info">
+            <div class="provider-logo">
+              <span class="logo-text ovo">ovo</span>
+            </div>
+            <div class="provider-name">OVO Energy - Standard Variable Tariff</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Your Options Card (with Jay analysis) -->
+      <section class="options-card card">
+        <h2 class="card-title">Your options</h2>
+        
+        <!-- Jay Analysis (reused component) -->
+        <div class="jay-analysis">
+          <div class="analysis-icon">✨</div>
+          <div class="analysis-content">
+            <p class="analysis-text">You'll start on a default tariff — safe, but rarely the best value. Most households save by switching. Why not check if there's a better fit for you?</p>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-primary" id="exploreOffersBtn">Explore other offers with OVO</button>
+          <button class="btn-secondary" id="keepPlanBtn">Keep plan</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- FAB (reused component) -->
+    <button class="fab" id="fabButton">✨</button>
+
+    <!-- Jay Chat Panel (reused component) -->
+    <div id="chatPanel" class="jay-chat-panel" style="display: none;">
+      <div id="chatHeader" class="jay-chat-header">Jay <span style="opacity:.8; font-size:12px">↗</span></div>
+      <div id="chatBody" class="jay-chat-body"></div>
+      <div id="chatPrompts" class="jay-chat-prompts">
+        <button class="chat-prompt" data-suggest="How much could I save by switching?">How much could I save by switching?</button>
+        <button class="chat-prompt" data-suggest="What's the difference between fixed and variable rates?">What's the difference between fixed and variable rates?</button>
+      </div>
+      <div id="chatFooter" class="jay-chat-footer">
+        <input id="chatInput" placeholder="Ask anything..." />
+        <button id="chatSend" class="chat-send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scenario-utils.js"></script>
+  <script>
+    // Simple scenario detection and branding
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('MARKETPLACE PAGE LOADED');
+      
+      if (window.ScenarioUtils.isEonScenario()) {
+        console.log('E.ON SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyEonBrandingToMarketplace();
+      } else if (window.ScenarioUtils.isBgScenario()) {
+        console.log('BG SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyBgBrandingToMarketplace();
+      } else {
+        console.log('No special scenario detected');
+      }
+    });
+  </script>
+  <script src="marketplace.js"></script>
+</body>
+</html>

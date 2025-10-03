@@ -1,0 +1,343 @@
+/* Marketplace-specific styles - improved card widths */
+
+/* Using shared header component from main page */
+
+/* Card Base Styles */
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Ensure marketplace title consistency */
+.page-header h1 {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  letter-spacing: .2px !important;
+  line-height: 1.2 !important;
+  margin: 12px 0 4px !important;
+}
+
+/* Property Details Card */
+.usage-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.usage-label {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.usage-tooltip-trigger {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+  border-radius: 50%;
+  transition: color 0.2s ease;
+}
+
+.usage-tooltip-trigger:hover {
+  color: #6b7280;
+}
+
+.property-info {
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.property-field {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.property-details-single-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.property-details-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.property-details-row .property-field {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.field-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.field-value {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Hide link removed - no longer needed */
+
+/* Provider Section (within Property Details Card) */
+.provider-section {
+  margin-bottom: 0;
+}
+
+.provider-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+}
+
+.provider-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.provider-logo {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.logo-text.edf {
+  font-weight: 800;
+}
+
+.logo-text.eon {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ef4444;
+  text-transform: lowercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+}
+
+.logo-text.ovo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #10b981;
+  text-transform: lowercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+}
+
+.logo-text.bg {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e40af;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+}
+
+.provider-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Your Options Card */
+.jay-analysis {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f8f9ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.analysis-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #6E40FF, #FF4081);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.analysis-content {
+  flex: 1;
+}
+
+.analysis-text {
+  font-size: 14px;
+  line-height: 20px;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.read-more-link {
+  background: none;
+  border: none;
+  color: #6366f1;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.read-more-link:hover {
+  color: #4f46e5;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+.btn-primary:hover {
+  background: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Tooltip Styles (reused from main page) */
+.tooltip-card {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+  padding: 16px;
+  font-size: 14px;
+  line-height: 20px;
+  max-width: 280px;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip-card.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tooltip-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+.tooltip-content {
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.tooltip-details {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .property-details-single-row {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+  
+  .property-field {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  
+  .property-details-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+}

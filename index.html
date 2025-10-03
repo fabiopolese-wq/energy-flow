@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">Just Move In</div>
+      <nav class="icons">
+        <button aria-label="Home" class="icon" id="homeBtn">🏠</button>
+        <button aria-label="Marketplace" class="icon active" id="marketplaceBtn">🛒</button>
+        <button aria-label="Subscriptions" class="icon" id="subscriptionsBtn">📋</button>
+        <button aria-label="Help" class="icon">❓</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="icon">👤</button>
+        <button class="icon">⚙️</button>
+        <button class="icon">▶️</button>
+      </div>
+    </aside>
+
+    <main class="container">
+      <header class="page-header">
+        <h1>Marketplace</h1>
+        <p class="subtitle">Compare providers, get quotes, find the best deals.</p>
+        <div class="pill-row">
+          <span class="pill">Bundles</span>
+          <span class="pill pill-active">Energy</span>
+          <span class="pill">Broadband</span>
+          <span class="pill">Insurance</span>
+          <span class="pill">Removals</span>
+        </div>
+      </header>
+
+      <!-- Standalone HeaderBar for Property details -->
+      <header class="headerbar">
+        <button type="button" id="backBtn" aria-label="Go back" class="back-circle">‹</button>
+        <h1 class="headerbar-title">Property details</h1>
+      </header>
+
+      <!-- Anchor for PersonalNeedsCard collapse logic -->
+      <div id="personal-needs-anchor"></div>
+
+      <!-- Helper text outside the card -->
+      <p class="needs-helper-standalone">Adjust your needs to see your offers personalised live</p>
+
+      <!-- Expanded PersonalNeedsCard (independent) -->
+      <section id="personal-needs-full" class="needs-card" aria-hidden="false">
+        <div class="needs-card-head"><h2 class="needs-headline">Personal needs</h2><span class="usage-chip" id="usageChip">Low usage</span></div>
+        <div class="selectors">
+          <button class="select" data-key="supply" data-values='["Electricity only","Dual fuel"]' aria-pressed="false">
+            <span class="label">Electricity only</span>
+            <span class="arrow" aria-hidden>▾</span>
+          </button>
+          <button class="select" data-key="bedrooms" data-values='["1 – 2 bedrooms","3 – 4 bedrooms","5+ bedrooms"]' aria-pressed="false">
+            <span class="label">1 – 2 bedrooms</span>
+            <span class="arrow" aria-hidden>▾</span>
+          </button>
+          <button class="select" data-key="ev" data-values='["Electric vehicle: No","Electric vehicle: Yes"]' aria-pressed="false">
+            <span class="label">Electric vehicle: No</span>
+            <span class="arrow" aria-hidden>▾</span>
+          </button>
+        </div>
+        <div class="confidence">
+          <div class="conf-head"><div class="label">Confidence</div><div id="confidencePercent" class="conf-pct">80%</div></div>
+          <div class="bar" id="confidenceBar"><div class="bar-fill" id="confidenceFill" style="width:80%"></div></div>
+          <div class="bar-caption" id="confidenceCaption">Initial estimate. Confirm the information on the pills above for stronger matched deals.</div>
+        </div>
+      </section>
+
+      <!-- Collapsed sticky bar (hidden until scrolled) -->
+      <aside id="needs-sticky" class="needs-sticky" role="button" tabindex="0" aria-expanded="false" aria-controls="personal-needs-full">
+        <span class="sticky-label">My needs</span>
+        <div class="sticky-pills">
+          <div class="sticky-pills-row" id="stickyPillsRow"></div>
+        </div>
+        <span class="sticky-usage" id="stickyUsage">Low</span>
+        <span class="sticky-chevron" aria-hidden>▴</span>
+      </aside>
+
+      <section class="best-offers">
+        <h3>Best offers</h3>
+        <p class="helper">Showing offers based on your needs.</p>
+
+        <div class="info card">
+          <div class="info-icon"></div>
+          <div class="info-content">
+            <p class="info-text">This plan is a strong match for your low usage profile. It is also a JMI partner, which provides you an extra layer of customer support, one-click check-out and rewards points.</p>
+          </div>
+        </div>
+
+        <div id="bestOffers"></div>
+        <button class="see-all" id="showAllOffersBtn">Show all offers <span class="chev">▾</span></button>
+      </section>
+
+      <section class="all-offers">
+        <h3>All offers</h3>
+        <p class="helper">Showing all offers available in the market</p>
+        <div class="pill-row tight">
+          <span class="pill">Fixed</span>
+          <span class="pill">Variable</span>
+          <span class="pill">Renewable energy</span>
+        </div>
+        <div id="allOffers"></div>
+      </section>
+    </main>
+
+    <template id="detailsTemplate">
+      <div class="details-panel">
+        <div class="details-body">
+          <h4>Compare OVO plans</h4>
+          <div class="compare">
+            <div class="col">
+              <div class="logo ovo">ovo</div>
+              <div class="title">OVO 1 Year Fixed</div>
+              <div class="attribute"><span class="attr-label">Pricing type:</span><span class="attr-value">Fixed (locked for 12 months)</span></div>
+              <div class="attribute"><span class="attr-label">Contract length:</span><span class="attr-value">12 months</span></div>
+              <div class="attribute"><span class="attr-label">Exit fees:</span><span class="attr-value">£50</span></div>
+              <div class="attribute"><span class="attr-label">Protection:</span><span class="attr-value">Protection if prices rise</span></div>
+              <div class="attribute"><span class="attr-label">Renewable %:</span><span class="attr-value">100%</span></div>
+            </div>
+            <div class="col">
+              <div class="logo ovo">ovo</div>
+              <div class="title">OVO Simpler Energy</div>
+              <div class="attribute"><span class="attr-label">Pricing type:</span><span class="attr-value">Variable (follows market rates)</span></div>
+              <div class="attribute"><span class="attr-label">Contract length:</span><span class="attr-value">Rolling contract</span></div>
+              <div class="attribute"><span class="attr-label">Exit fees:</span><span class="attr-value">None</span></div>
+              <div class="attribute"><span class="attr-label">Protection:</span><span class="attr-value">Flexibility to switch anytime</span></div>
+              <div class="attribute"><span class="attr-label">Renewable %:</span><span class="attr-value">100%</span></div>
+            </div>
+          </div>
+          <h4>About OVO Energy</h4>
+          <div class="bio">
+            <p>OVO Energy is the UK's largest independent energy supplier, committed to driving the zero carbon transition. All OVO customers receive 100% renewable electricity as standard, sourced from UK wind, solar and hydro. OVO is a certified B Corp, meaning they meet the highest standards of social and environmental performance, accountability, and transparency.</p>
+            <div class="bio-actions">
+              <button class="pill">What's my impact with renewables?</button>
+              <button class="pill">Why 100% renewable?</button>
+            </div>
+          </div>
+          <div class="footer-actions">
+            <button class="primary">Choose plan</button>
+            <button class="ghost close-details">Close Plan ▴</button>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <button class="fab" aria-label="Ask Jay">✦</button>
+
+  <script src="scenario-utils.js"></script>
+  <script>
+    // Simple scenario detection and branding
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DETAILED COMPARISON PAGE LOADED');
+      
+      if (window.ScenarioUtils.isEonScenario()) {
+        console.log('E.ON SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyEonBrandingToComparison();
+      } else if (window.ScenarioUtils.isBgScenario()) {
+        console.log('BG SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyBgBrandingToComparison();
+      } else {
+        console.log('No special scenario detected');
+      }
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Just Move In</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+  <div class="checkout-layout">
+    <!-- Header -->
+    <header class="checkout-header">
+      <div class="header-left">
+        <div class="brand">Just Move In</div>
+        <div class="checkout-title">Your order overview</div>
+      </div>
+      
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step active">
+          <span class="step-number">1</span>
+          <span class="step-label">Payment details</span>
+        </div>
+        <div class="step">
+          <span class="step-number">2</span>
+          <span class="step-label">Review order</span>
+        </div>
+      </div>
+      
+      <!-- Cancel Button -->
+      <button class="cancel-btn" id="cancelBtn">Cancel</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="checkout-main">
+      <!-- Left Column - Payment Details -->
+      <div class="payment-section">
+        <div class="section-header">
+          <span class="section-number">1</span>
+          <h2 class="section-title">Payment details</h2>
+        </div>
+
+        <!-- Direct Debit Form -->
+        <form id="paymentForm" class="payment-form">
+          <div class="form-section">
+            <h3 class="form-section-title">Your Direct Debit details</h3>
+            
+            <div class="form-group">
+              <label for="accountHolder" class="form-label">Bank account holder</label>
+              <input 
+                type="text" 
+                id="accountHolder" 
+                name="accountHolder" 
+                class="form-input" 
+                required
+                placeholder="Enter account holder name"
+              >
+              <div class="error-message" id="accountHolderError"></div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="accountNumber" class="form-label">Bank account number</label>
+                <input 
+                  type="text" 
+                  id="accountNumber" 
+                  name="accountNumber" 
+                  class="form-input" 
+                  required
+                  placeholder="12345678"
+                  maxlength="8"
+                  pattern="[0-9]{8}"
+                >
+                <div class="error-message" id="accountNumberError"></div>
+              </div>
+              
+              <div class="form-group">
+                <label for="sortCode" class="form-label">Bank account sort code</label>
+                <input 
+                  type="text" 
+                  id="sortCode" 
+                  name="sortCode" 
+                  class="form-input" 
+                  required
+                  placeholder="12-34-56"
+                  maxlength="8"
+                  pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}"
+                >
+                <div class="error-message" id="sortCodeError"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instalments -->
+          <div class="form-section">
+            <h3 class="form-section-title">Instalments</h3>
+            <div class="instalment-options">
+              <label class="instalment-option">
+                <input type="radio" name="instalment" value="monthly" checked>
+                <span class="instalment-label">Monthly</span>
+              </label>
+              <label class="instalment-option">
+                <input type="radio" name="instalment" value="annually">
+                <span class="instalment-label">Annually</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Terms and Conditions -->
+          <div class="form-section">
+            <h3 class="form-section-title">Terms and conditions</h3>
+            
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="authoriseDebit" name="authoriseDebit" required>
+                <span class="checkbox-custom"></span>
+                <div class="checkbox-content">
+                  <div class="checkbox-text">I can authorise debits on this account by myself.</div>
+                  <div class="checkbox-subtext">Some bank accounts may require two or more people to authorise a Direct Debit.</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                <span class="checkbox-custom"></span>
+                <div class="checkbox-content">
+                  <div class="checkbox-text">I agree to Rebel Energy's Terms and Conditions and like most Energy companies, allow them to perform a credit check when I click the button below.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Continue Button -->
+          <button type="submit" class="continue-btn" id="continueBtn" disabled>
+            Continue to review your order
+          </button>
+        </form>
+
+        <!-- Step 2 Preview -->
+        <div class="step-preview" id="step2Preview">
+          <div class="step-preview-header">
+            <span class="step-number inactive">2</span>
+            <span class="step-label inactive">Review your order</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 - Review Order (Hidden initially) -->
+      <div class="review-section" id="reviewSection" style="display: none;">
+      <!-- Step 1 Collapsed Card -->
+      <div class="step-collapsed" id="step1Collapsed" style="display: none;">
+        <div class="collapsed-header">
+          <div class="step-indicator">
+            <span class="step-number completed">✓</span>
+            <span class="step-label">Payment details</span>
+          </div>
+          <button type="button" class="edit-btn" aria-label="Edit payment details">
+            <span class="edit-icon">✏️</span>
+            <span class="edit-text">Edit</span>
+          </button>
+        </div>
+      </div>
+
+        <!-- Step 2 Content -->
+        <div class="section-header">
+          <span class="section-number">2</span>
+          <h2 class="section-title">Review your order</h2>
+        </div>
+
+        <form id="reviewForm" class="review-form">
+          <!-- Personal Details Section -->
+          <div class="form-section">
+            <h3 class="form-section-title">Your personal details</h3>
+            
+            <div class="form-group">
+              <label for="reviewAddress" class="form-label">Your address</label>
+              <input 
+                type="text" 
+                id="reviewAddress" 
+                name="reviewAddress" 
+                class="form-input readonly" 
+                value="1 Test Street, Bournemouth BH2 5LP"
+                readonly
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="reviewName" class="form-label">Your name</label>
+              <input 
+                type="text" 
+                id="reviewName" 
+                name="reviewName" 
+                class="form-input readonly" 
+                value="Joe Blogs"
+                readonly
+              >
+            </div>
+          </div>
+
+          <!-- Payment Information Section -->
+          <div class="form-section">
+            <h3 class="form-section-title">Payment information & Payment date</h3>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="reviewAccountNumber" class="form-label">Bank account number</label>
+                <input 
+                  type="text" 
+                  id="reviewAccountNumber" 
+                  name="reviewAccountNumber" 
+                  class="form-input readonly" 
+                  readonly
+                >
+              </div>
+              
+              <div class="form-group">
+                <label for="reviewSortCode" class="form-label">Bank account sort code</label>
+                <input 
+                  type="text" 
+                  id="reviewSortCode" 
+                  name="reviewSortCode" 
+                  class="form-input readonly" 
+                  readonly
+                >
+              </div>
+            </div>
+
+            <div class="form-group payment-date-group">
+              <label for="nextPaymentDate" class="form-label">Next payment date</label>
+              <div class="payment-date-wrapper">
+                <input 
+                  type="text" 
+                  id="nextPaymentDate" 
+                  name="nextPaymentDate" 
+                  class="form-input readonly" 
+                  value="01/09/2025"
+                  readonly
+                >
+              <button type="button" class="info-icon" id="paymentDateInfo">
+                <span class="icon">ℹ</span>
+              </button>
+              </div>
+              
+              <!-- Payment Date Tooltip -->
+              <div class="payment-tooltip" id="paymentTooltip" style="display: none;">
+                <div class="tooltip-content">
+                  <p>This will be live from 25th July, same day as you move in</p>
+                  <button type="button" class="follow-up-btn" id="followUpJay">Follow up with Jay</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column - Review Cart -->
+      <div class="cart-section">
+        <div class="section-header">
+          <h2 class="section-title">Review your cart</h2>
+        </div>
+
+        <!-- Plan Card -->
+        <div class="plan-card">
+          <div class="plan-header">
+            <div class="plan-info">
+              <div class="plan-name">OVO 1 Year Fixed</div>
+              <div class="plan-price">£50.71 <span class="price-period">/ month</span></div>
+            </div>
+            <div class="plan-logo">
+              <span class="logo-text ovo">ovo</span>
+            </div>
+          </div>
+          
+          <div class="plan-description">
+            This price is based on a usage of 1,800 kWh electricity for your property at N1 7GR
+          </div>
+          
+          <div class="plan-features">
+            <div class="plan-type">1 Year Fixed Rate</div>
+            <ul class="feature-list">
+              <li>100% renewable electricity</li>
+              <li>Fixed unit rates and standing charges for a year</li>
+              <li>B Corp certified company that also funds carbon-removal projects</li>
+            </ul>
+          </div>
+
+          <!-- Tariff Info Button -->
+          <button class="tariff-info-btn" id="tariffInfoBtn">
+            <span class="tariff-icon">📋</span>
+            Tariff info
+          </button>
+        </div>
+
+        <!-- Available with this plan (hidden in step 2) -->
+        <div class="addon-section" id="addonSection">
+          <h3 class="addon-title">Available with this plan</h3>
+          <div class="addon-item">
+            <div class="addon-content">
+              <div class="addon-name">Add Smart Meter & installation for £32</div>
+              <div class="addon-description">Some bit of info here to help people decide on the offer for a smart meter or not. Jay might come in to help with more context if needed.</div>
+            </div>
+            <label class="addon-checkbox">
+              <input type="checkbox" id="smartMeter" name="smartMeter">
+              <span class="checkbox-custom"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="total-section">
+          <div class="total-row">
+            <span class="total-label">Total</span>
+            <span class="total-amount">£51.71 <span class="total-period">/ month</span></span>
+          </div>
+          <button class="complete-registration-btn" disabled>
+            Complete registration
+          </button>
+        </div>
+
+        <!-- Direct Debit Guarantee (hidden in step 2) -->
+        <div class="guarantee-section" id="guaranteeSection">
+          <div class="guarantee-logo">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Ctext x='50' y='30' text-anchor='middle' font-family='Arial' font-size='12' fill='%23333'%3EDIRECT DEBIT%3C/text%3E%3C/svg%3E" alt="Direct Debit" class="dd-logo">
+          </div>
+          <div class="guarantee-text">
+            The Direct Debit Guarantee applies to all Direct Debit payments. It protects you in the rare event there's an error in the set up or collection of your Direct Debit. 
+            <a href="#" class="learn-more-link">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FAB (reused component) -->
+    <button class="fab" id="fabButton">✨</button>
+
+    <!-- Jay Chat Panel (reused component) -->
+    <div id="chatPanel" class="jay-chat-panel" style="display: none;">
+      <div id="chatHeader" class="jay-chat-header">Jay <span style="opacity:.8; font-size:12px">↗</span></div>
+      <div id="chatBody" class="jay-chat-body"></div>
+      <div id="chatPrompts" class="jay-chat-prompts">
+        <button class="chat-prompt" data-suggest="How secure is Direct Debit?">How secure is Direct Debit?</button>
+        <button class="chat-prompt" data-suggest="What happens if I want to cancel?">What happens if I want to cancel?</button>
+      </div>
+      <div id="chatFooter" class="jay-chat-footer">
+        <input id="chatInput" placeholder="Ask anything..." />
+        <button id="chatSend" class="chat-send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="scenario-utils.js"></script>
+  <script>
+    // Simple scenario detection and branding
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('CHECKOUT PAGE LOADED');
+      
+      if (window.ScenarioUtils.isEonScenario()) {
+        console.log('E.ON SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyEonBrandingToCheckout();
+      } else if (window.ScenarioUtils.isBgScenario()) {
+        console.log('BG SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyBgBrandingToCheckout();
+      } else {
+        console.log('No special scenario detected');
+      }
+    });
+  </script>
+  <script src="checkout.js"></script>
+</body>
+</html>

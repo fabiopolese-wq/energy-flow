@@ -4,6 +4,9 @@ const state = {
   ev: 'Electric vehicle: No',
   usage: 'Low',
   confirmed: { supply: false, bedrooms: false, ev: false },
+  allOffersVisible: false,
+  scrollPosition: 0,
+  isRendering: false,
 };
 
 const usageChip = () => document.getElementById('usageChip');
@@ -14,6 +17,65 @@ function updateUsageFromBedrooms() {
   if (state.bedrooms === '3 – 4 bedrooms' || state.bedrooms === '5+ bedrooms') { state.usage = 'Medium'; } else { state.usage = 'Low'; }
   const u = document.getElementById('usageChip'); if (u) u.textContent = `${state.usage} usage`;
   const su = document.getElementById('stickyUsage'); if (su) su.textContent = `${state.usage}`;
+}
+
+function saveScrollPosition() {
+  state.scrollPosition = window.scrollY;
+  console.log('Saved scroll position:', state.scrollPosition);
+}
+
+function restoreScrollPosition() {
+  if (state.scrollPosition > 0) {
+    console.log('Restoring scroll position:', state.scrollPosition);
+    // Use multiple attempts to ensure scroll position is restored
+    const attemptRestore = (attempts = 0) => {
+      if (attempts > 10) return; // Prevent infinite loops
+      
+      window.scrollTo({
+        top: state.scrollPosition,
+        behavior: 'instant'
+      });
+      
+      // Check if scroll position was actually set
+      setTimeout(() => {
+        if (Math.abs(window.scrollY - state.scrollPosition) > 10) {
+          attemptRestore(attempts + 1);
+        }
+      }, 50);
+    };
+    
+    requestAnimationFrame(() => {
+      attemptRestore();
+    });
+  }
+}
+
+function saveAllOffersState() {
+  const allOffersSection = document.querySelector('.all-offers');
+  const showAllBtn = document.getElementById('showAllOffersBtn');
+  
+  if (allOffersSection && showAllBtn) {
+    const isVisible = allOffersSection.style.display === 'block';
+    state.allOffersVisible = isVisible;
+    console.log('Saved all offers state:', state.allOffersVisible);
+  }
+}
+
+function restoreAllOffersState() {
+  const allOffersSection = document.querySelector('.all-offers');
+  const showAllBtn = document.getElementById('showAllOffersBtn');
+  
+  if (allOffersSection && showAllBtn) {
+    console.log('Restoring all offers state:', state.allOffersVisible);
+    
+    if (state.allOffersVisible) {
+      allOffersSection.style.display = 'block';
+      showAllBtn.innerHTML = 'Hide all offers <span class="chev">▴</span>';
+    } else {
+      allOffersSection.style.display = 'none';
+      showAllBtn.innerHTML = 'Show all offers <span class="chev">▾</span>';
+    }
+  }
 }
 
 function computeConfidencePercent() {
@@ -179,6 +241,14 @@ function renderOffers() {
   
   if (!bestRoot || !allRoot || !bestOffersSection || !allOffersSection) return;
   
+  state.isRendering = true;
+  console.log('Starting renderOffers, allOffersVisible:', state.allOffersVisible);
+  
+  // Disable collapse updates during content changes to prevent bouncing
+  if (window.disableCollapseUpdates) {
+    window.disableCollapseUpdates();
+  }
+  
   // Check if any pill is confirmed
   const hasConfirmedPill = Object.values(state.confirmed).some(Boolean);
   
@@ -186,14 +256,22 @@ function renderOffers() {
     // Hide both sections when no pills are confirmed
     bestOffersSection.style.display = 'none';
     allOffersSection.style.display = 'none';
+    state.allOffersVisible = false;
+    // Re-enable collapse updates after content change
+    if (window.enableCollapseUpdates) {
+      setTimeout(() => window.enableCollapseUpdates(), 100);
+    }
+    state.isRendering = false;
     return;
   }
   
   // Show best offers section when at least one pill is confirmed
   bestOffersSection.style.display = 'block';
   
-  // Hide all offers section initially (will be shown by "Show all offers" button)
-  allOffersSection.style.display = 'none';
+  // Restore all offers state after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    restoreAllOffersState();
+  }, 50);
   
   const priceBase = 40.94; const multiplier = state.bedrooms === '3 – 4 bedrooms' ? 1.18 : state.bedrooms === '5+ bedrooms' ? 1.35 : 1.0;
   const evAdj = state.ev.includes('Yes') ? 1.07 : 1.0; const dualAdj = state.supply === 'Dual fuel' ? 1.06 : 1.0;
@@ -228,6 +306,19 @@ function renderOffers() {
       card.classList.add('shimmer');
       setTimeout(() => card.classList.remove('shimmer'), 1000);
     });
+    
+    // Re-enable collapse updates after content is fully rendered
+    if (window.enableCollapseUpdates) {
+      setTimeout(() => window.enableCollapseUpdates(), 200);
+    }
+    
+    // Restore scroll position and all offers state after all content is rendered
+    setTimeout(() => {
+      restoreScrollPosition();
+      restoreAllOffersState();
+      state.isRendering = false;
+      console.log('Finished renderOffers, allOffersVisible:', state.allOffersVisible);
+    }, 100);
   }, 800);
 
   const offers = Array.from({length: 7}, (_, i) => {
@@ -313,6 +404,11 @@ function attachSelectorHandlers() {
         const item = document.createElement('div'); item.className = 'dropdown-option'; item.textContent = val;
         item.addEventListener('click', () => {
           console.log('Pill clicked:', key, val);
+          
+          // Save current state before making changes
+          saveScrollPosition();
+          saveAllOffersState();
+          
           state[key] = val; labelEl.textContent = val; state.confirmed[key] = true; btn.classList.add('confirmed'); btn.setAttribute('aria-pressed','true');
           syncStickyPills(); if (key === 'bedrooms') updateUsageFromBedrooms();
           updateConfidenceBar(); updateConfidenceCaption(); 
@@ -322,7 +418,7 @@ function attachSelectorHandlers() {
           
           renderOffers(); 
           
-          // Add shimmer effect when cards first appear
+          // Add shimmer effect
           setTimeout(() => addShimmer(), 100);
           
           menu.remove(); btn.classList.remove('open');
@@ -359,6 +455,11 @@ function syncStickyPills() {
         const item = document.createElement('div'); item.className = 'dropdown-option'; item.textContent = option;
         item.addEventListener('click', () => {
           console.log('Sticky pill clicked:', key, option);
+          
+          // Save current state before making changes
+          saveScrollPosition();
+          saveAllOffersState();
+          
           state[key] = option; pill.textContent = option; state.confirmed[key] = true; pill.classList.add('confirmed');
           // Also update main pills text
           const mainBtn = document.querySelector(`.select[data-key="${key}"]`); if (mainBtn) { const l = mainBtn.querySelector('.label'); if (l) l.textContent = option; mainBtn.classList.add('confirmed'); mainBtn.setAttribute('aria-pressed','true'); }
@@ -370,7 +471,7 @@ function syncStickyPills() {
           
           renderOffers(); 
           
-          // Add shimmer effect when cards first appear
+          // Add shimmer effect
           setTimeout(() => addShimmer(), 100);
           
           syncStickyPills();
@@ -395,31 +496,62 @@ function setupCollapseObserver() {
   const HEADER_OFFSET_PX = 40;
   let collapsed = false;
   let ticking = false;
+  let lastScrollY = window.scrollY;
+  let collapseThreshold = null;
+  let isUpdatingContent = false;
+  let debounceTimeout = null;
 
   function closeOpenDropdowns() {
     document.querySelectorAll('.dropdown-preview').forEach(n => n.remove());
     document.querySelectorAll('.select.open').forEach(b => b.classList.remove('open'));
   }
 
+  function calculateCollapseThreshold() {
+    // Calculate the scroll position where the anchor would be at the threshold
+    const anchorRect = anchor.getBoundingClientRect();
+    const anchorTop = anchorRect.top + window.scrollY;
+    return anchorTop - HEADER_OFFSET_PX;
+  }
+
   function update() {
-    const y = anchor.getBoundingClientRect().top;
-    // Enter collapsed when scrolling down past header
-    if (!collapsed && y < -HEADER_OFFSET_PX) {
+    // Skip updates during content changes to prevent bouncing
+    if (isUpdatingContent) return;
+    
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+    
+    // Only update threshold if page content has changed significantly
+    if (collapseThreshold === null || Math.abs(scrollDelta) > 50) {
+      collapseThreshold = calculateCollapseThreshold();
+    }
+    
+    // Use scroll position instead of getBoundingClientRect for more stable behavior
+    const shouldCollapse = currentScrollY > collapseThreshold;
+    
+    // Add hysteresis to prevent rapid toggling
+    const hysteresis = 30; // Increased hysteresis
+    const shouldExpand = currentScrollY < (collapseThreshold - hysteresis);
+    
+    if (!collapsed && shouldCollapse) {
       collapsed = true;
       sticky.classList.add('show');
-      full.style.display = 'none';
+      // Use transform to move card off-screen while maintaining layout space
+      full.style.transform = 'translateY(-100%)';
+      full.style.opacity = '0';
       full.setAttribute('aria-hidden','true');
       sticky.setAttribute('aria-expanded','false');
       closeOpenDropdowns();
-    }
-    // Exit collapsed when scrolling back up to original position
-    if (collapsed && y > -HEADER_OFFSET_PX) {
+    } else if (collapsed && shouldExpand) {
       collapsed = false;
       sticky.classList.remove('show');
-      full.style.display = 'block';
+      // Restore card to normal position
+      full.style.transform = 'translateY(0)';
+      full.style.opacity = '1';
       full.setAttribute('aria-hidden','false');
       sticky.setAttribute('aria-expanded','true');
     }
+    
+    lastScrollY = currentScrollY;
   }
 
   function onScroll() {
@@ -428,14 +560,60 @@ function setupCollapseObserver() {
     requestAnimationFrame(() => { update(); ticking = false; });
   }
 
+  function onResize() {
+    // Recalculate threshold on resize
+    collapseThreshold = null;
+    update();
+  }
+
+  // Debounced update function to prevent rapid changes
+  function debouncedUpdate() {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+    debounceTimeout = setTimeout(() => {
+      update();
+    }, 100);
+  }
+
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  // initial state
+  window.addEventListener('resize', onResize);
+  
+  // Initial state
   update();
 
   // Click/keyboard to expand
-  sticky.addEventListener('click', () => anchor.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-  sticky.addEventListener('keydown', (e) => { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); sticky.click(); } });
+  sticky.addEventListener('click', () => {
+    // Temporarily disable collapse logic during smooth scroll
+    isUpdatingContent = true;
+    
+    anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Re-enable after scroll completes
+    setTimeout(() => {
+      isUpdatingContent = false;
+      collapseThreshold = null; // Force recalculation
+      update();
+    }, 1000);
+  });
+  
+  sticky.addEventListener('keydown', (e) => { 
+    if (e.key==='Enter' || e.key===' ') { 
+      e.preventDefault(); 
+      sticky.click(); 
+    } 
+  });
+
+  // Expose function to temporarily disable updates during content changes
+  window.disableCollapseUpdates = () => {
+    isUpdatingContent = true;
+  };
+  
+  window.enableCollapseUpdates = () => {
+    isUpdatingContent = false;
+    collapseThreshold = null; // Force recalculation
+    setTimeout(() => update(), 200); // Small delay to ensure content is settled
+  };
 }
 
 function maybeToggleDetails(target) {
@@ -859,6 +1037,11 @@ function showInitialLoadingState() {
   
   if (!bestRoot || !bestOffersSection) return;
   
+  // Disable collapse updates during initial content loading
+  if (window.disableCollapseUpdates) {
+    window.disableCollapseUpdates();
+  }
+  
   // Show best offers section
   bestOffersSection.style.display = 'block';
   
@@ -913,6 +1096,11 @@ function showInitialLoadingState() {
       card.classList.add('shimmer');
       setTimeout(() => card.classList.remove('shimmer'), 1000);
     });
+    
+    // Re-enable collapse updates after initial content is fully loaded
+    if (window.enableCollapseUpdates) {
+      setTimeout(() => window.enableCollapseUpdates(), 300);
+    }
   }, 1200);
 }
 
@@ -929,6 +1117,8 @@ function setupShowAllOffersButton() {
       // Show all offers section
       allOffersSection.style.display = 'block';
       showAllBtn.innerHTML = 'Hide all offers <span class="chev">▴</span>';
+      state.allOffersVisible = true;
+      console.log('All offers shown, state updated:', state.allOffersVisible);
       
       // Add shimmer to all offers cards
       setTimeout(() => {
@@ -942,6 +1132,8 @@ function setupShowAllOffersButton() {
       // Hide all offers section
       allOffersSection.style.display = 'none';
       showAllBtn.innerHTML = 'Show all offers <span class="chev">▾</span>';
+      state.allOffersVisible = false;
+      console.log('All offers hidden, state updated:', state.allOffersVisible);
     }
   });
 }

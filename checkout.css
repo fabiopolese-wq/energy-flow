@@ -193,7 +193,7 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: #6144DD;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -229,7 +229,7 @@
 }
 
 .instalment-option:hover {
-  border-color: #6366f1;
+  border-color: #6144DD;
 }
 
 .instalment-option input[type="radio"] {
@@ -237,12 +237,12 @@
 }
 
 .instalment-option input[type="radio"]:checked + .instalment-label {
-  color: #6366f1;
+  color: #6144DD;
   font-weight: 600;
 }
 
 .instalment-option:has(input[type="radio"]:checked) {
-  border-color: #6366f1;
+  border-color: #6144DD;
   background: #f8f9ff;
 }
 
@@ -284,8 +284,8 @@
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
-  background: #6366f1;
-  border-color: #6366f1;
+  background: #6144DD;
+  border-color: #6144DD;
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
@@ -312,7 +312,7 @@
 
 /* Continue Button */
 .continue-btn {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
   border: none;
   border-radius: 8px;
@@ -603,7 +603,7 @@
 
 .follow-up-btn {
   background: #f3f4f6;
-  color: #6366f1;
+  color: #6144DD;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   padding: 8px 12px;
@@ -614,9 +614,9 @@
 }
 
 .follow-up-btn:hover {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
-  border-color: #6366f1;
+  border-color: #6144DD;
 }
 
 /* Animation Classes */
@@ -632,7 +632,7 @@
 
 /* Complete Registration Button Active State */
 .complete-registration-btn.active {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
   cursor: pointer;
 }
@@ -716,6 +716,14 @@
 .logo-text.bg {
   font-weight: 800;
   color: #1e40af;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0px;
+}
+
+.logo-text.openrent {
+  font-weight: 800;
+  color: #059669;
   text-transform: uppercase;
   font-size: 18px;
   letter-spacing: 0px;
@@ -877,7 +885,7 @@
 }
 
 .complete-registration-btn:not(:disabled) {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
   cursor: pointer;
 }
@@ -916,7 +924,7 @@
 }
 
 .learn-more-link {
-  color: #6366f1;
+  color: #6144DD;
   text-decoration: underline;
 }
 

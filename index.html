@@ -8,20 +8,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
     <aside class="sidebar">
       <div class="brand">Just Move In</div>
       <nav class="icons">
-        <button aria-label="Home" class="icon" id="homeBtn">🏠</button>
-        <button aria-label="Marketplace" class="icon active" id="marketplaceBtn">🛒</button>
-        <button aria-label="Subscriptions" class="icon" id="subscriptionsBtn">📋</button>
-        <button aria-label="Help" class="icon">❓</button>
+        <button class="nav-item" onclick="window.location.href='checklist.html'">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item active" onclick="window.location.href='index.html'">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Marketplace</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='subscriptions.html'">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Subscriptions</span>
+        </button>
       </nav>
       <div class="sidebar-bottom">
-        <button class="icon">👤</button>
-        <button class="icon">⚙️</button>
-        <button class="icon">▶️</button>
+        <button class="nav-item" onclick="window.location.href='index-landing.html'">
+          <span class="nav-icon">↩️</span>
+          <span class="nav-label">Return</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </button>
+        <button class="nav-item collapse-btn" onclick="toggleSidebar()">
+          <span class="nav-icon">◀</span>
+          <span class="nav-label">Collapse</span>
+        </button>
       </div>
     </aside>
 
@@ -38,7 +60,9 @@
         </div>
       </header>
 
-      <!-- Standalone HeaderBar for Property details -->
+      <!-- Index Content Container -->
+      <div class="index-container">
+        <!-- Standalone HeaderBar for Property details -->
       <header class="headerbar">
         <button type="button" id="backBtn" aria-label="Go back" class="back-circle">‹</button>
         <h1 class="headerbar-title">Property details</h1>
@@ -109,6 +133,7 @@
         </div>
         <div id="allOffers"></div>
       </section>
+      </div>
     </main>
 
     <template id="detailsTemplate">
@@ -154,22 +179,34 @@
     <button class="fab" aria-label="Ask Jay">✦</button>
 
   <script src="scenario-utils.js"></script>
+  <script src="script.js"></script>
   <script>
     // Simple scenario detection and branding
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DETAILED COMPARISON PAGE LOADED');
+      console.log('INDEX PAGE LOADED');
       
-      if (window.ScenarioUtils.isEonScenario()) {
+      if (window.ScenarioUtils && window.ScenarioUtils.isEonScenario()) {
         console.log('E.ON SCENARIO DETECTED - Applying branding');
         window.ScenarioUtils.applyEonBrandingToComparison();
-      } else if (window.ScenarioUtils.isBgScenario()) {
+      } else if (window.ScenarioUtils && window.ScenarioUtils.isBgScenario()) {
         console.log('BG SCENARIO DETECTED - Applying branding');
         window.ScenarioUtils.applyBgBrandingToComparison();
+      } else if (window.ScenarioUtils && window.ScenarioUtils.isOpenRentScenario()) {
+        console.log('OPEN RENT SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyOpenRentBrandingToComparison();
+        
+        // Update menu label to "Contracts" for Open Rent scenario
+        const navLabels = document.querySelectorAll('.nav-item .nav-label');
+        navLabels.forEach(label => {
+          if (label.textContent === 'Subscriptions') {
+            label.textContent = 'Contracts';
+            console.log('Updated sidebar menu label to Contracts');
+          }
+        });
       } else {
         console.log('No special scenario detected');
       }
     });
   </script>
-  <script src="script.js"></script>
 </body>
 </html>

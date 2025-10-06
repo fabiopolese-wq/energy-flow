@@ -1,11 +1,137 @@
 /* Subscriptions Page Styles */
 
+/* Sidebar Override for Subscriptions */
+.sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 200px !important;
+  height: 100vh !important;
+  background: white !important;
+  border-right: 1px solid #e5e7eb !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 100 !important;
+  transition: width 0.3s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar .brand {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  padding: 16px 12px !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.sidebar .icons,
+.sidebar .sidebar-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.sidebar .sidebar-bottom {
+  margin-top: auto !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.sidebar .nav-item {
+  width: 100% !important;
+  padding: 12px 12px !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #6b7280 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  min-height: 44px !important;
+}
+
+.sidebar .nav-item:hover {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+}
+
+.sidebar .nav-item.active {
+  background: #6144DD !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.sidebar .nav-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  text-align: center !important;
+}
+
+.sidebar .nav-label {
+  font-size: 14px !important;
+  font-weight: inherit !important;
+}
+
+.sidebar .collapse-btn {
+  margin-top: 8px !important;
+  background: #f3f4f6 !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+}
+
+.sidebar .collapse-btn:hover {
+  background: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+/* Collapsed State */
+.sidebar.collapsed {
+  width: 60px !important;
+}
+
+.sidebar.collapsed .brand {
+  font-size: 10px !important;
+  padding: 16px 8px !important;
+}
+
+.sidebar.collapsed .nav-item {
+  padding: 12px 0 !important;
+  justify-content: center !important;
+  width: 60px !important;
+}
+
+.sidebar.collapsed .nav-label {
+  display: none !important;
+}
+
+.sidebar.collapsed .nav-icon {
+  font-size: 18px !important;
+}
+
+.sidebar.collapsed .collapse-btn {
+  transform: rotate(180deg) !important;
+}
+
 /* Main Layout */
 .main-content {
-  margin-left: 80px;
+  margin-left: 200px !important;
   min-height: 100vh;
   background: #fafbfc;
   padding: 0;
+  transition: margin-left 0.3s ease !important;
+}
+
+.sidebar.collapsed ~ .main-content {
+  margin-left: 60px !important;
 }
 
 /* Page Header */
@@ -41,6 +167,71 @@
 /* Active Services Section */
 .active-services {
   margin-bottom: 32px;
+}
+
+/* Cards Container for side-by-side layout */
+.cards-container {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 20px !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+}
+
+/* Multiple subscription cards */
+.cards-container .subscription-card {
+  flex: 1 !important;
+  min-width: 300px !important;
+  max-width: 400px !important;
+  margin-bottom: 0 !important;
+  width: auto !important;
+  display: block !important;
+}
+
+
+.rental-contract-card .card-header .lock-icon span {
+  font-size: 20px;
+}
+
+/* Progress Section */
+.progress-section {
+  padding: 16px 20px;
+  border-top: 1px solid #f1f5f9;
+  background: #fafbfc;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.progress-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #6144DD;
+  border-radius: 3px;
+  transition: width 0.3s ease;
 }
 
 .section-title {
@@ -171,6 +362,24 @@
   letter-spacing: 0px;
 }
 
+.logo-text.openrent {
+  font-size: 84px;
+  font-weight: 700;
+  color: #059669;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+}
+
+.logo-text.rent-contract {
+  font-size: 24px;
+  font-weight: 700;
+  color: #059669;
+  text-transform: none;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0px;
+}
+
 /* Plan Details */
 .plan-details {
   margin-bottom: 0;
@@ -262,7 +471,7 @@
 
 /* Sidebar Active State for Subscriptions */
 .sidebar .nav-item.active {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
 }
 
@@ -456,7 +665,7 @@
 }
 
 .modal-close-btn {
-  background: #6366f1;
+  background: #6144DD;
   color: white;
   border: none;
   border-radius: 12px;
@@ -675,4 +884,12 @@
   .power-up-title {
     font-size: 24px;
   }
+}
+
+/* Rental contract card button hover effects */
+.rental-contract-card .action-btn.secondary:hover {
+  background: #f9fafb !important;
+  border-color: #9ca3af !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }

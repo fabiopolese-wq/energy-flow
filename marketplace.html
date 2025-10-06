@@ -13,15 +13,36 @@
     <aside class="sidebar">
       <div class="brand">Just Move In</div>
       <nav class="icons">
-        <button aria-label="Home" class="icon" id="homeBtn">🏠</button>
-        <button aria-label="Marketplace" class="icon active" id="marketplaceBtn">🛒</button>
-        <button aria-label="Subscriptions" class="icon" id="subscriptionsBtn">📋</button>
-        <button aria-label="Help" class="icon">❓</button>
+        <button class="nav-item" onclick="window.location.href='checklist.html'">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item active" onclick="window.location.href='marketplace.html'">
+          <span class="nav-icon">🛒</span>
+          <span class="nav-label">Marketplace</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='subscriptions.html'">
+          <span class="nav-icon">📋</span>
+          <span class="nav-label">Subscriptions</span>
+        </button>
       </nav>
       <div class="sidebar-bottom">
-        <button class="icon">👤</button>
-        <button class="icon">⚙️</button>
-        <button class="icon">▶️</button>
+        <button class="nav-item" onclick="window.location.href='index-landing.html'">
+          <span class="nav-icon">↩️</span>
+          <span class="nav-label">Return</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
+        </button>
+        <button class="nav-item">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </button>
+        <button class="nav-item collapse-btn" onclick="toggleSidebar()">
+          <span class="nav-icon">◀</span>
+          <span class="nav-label">Collapse</span>
+        </button>
       </div>
     </aside>
 
@@ -40,8 +61,10 @@
         </div>
       </header>
 
-      <!-- Property Details Card (includes current provider) -->
-      <section class="property-card card">
+      <!-- Marketplace Content Container -->
+      <div class="marketplace-container">
+        <!-- Property Details Card (includes current provider) -->
+        <section class="property-card card">
         <div class="card-header">
           <h2 class="card-title">Property details</h2>
           <div class="usage-indicator">
@@ -96,6 +119,7 @@
           <button class="btn-secondary" id="keepPlanBtn">Keep plan</button>
         </div>
       </section>
+      </div>
     </main>
 
     <!-- FAB (reused component) -->
@@ -117,6 +141,7 @@
   </div>
 
   <script src="scenario-utils.js"></script>
+  <script src="script.js"></script>
   <script>
     // Simple scenario detection and branding
     document.addEventListener('DOMContentLoaded', function() {
@@ -128,6 +153,18 @@
       } else if (window.ScenarioUtils.isBgScenario()) {
         console.log('BG SCENARIO DETECTED - Applying branding');
         window.ScenarioUtils.applyBgBrandingToMarketplace();
+      } else if (window.ScenarioUtils.isOpenRentScenario()) {
+        console.log('OPEN RENT SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyOpenRentBrandingToMarketplace();
+        
+        // Update menu label to "Contracts" for Open Rent scenario
+        const navLabels = document.querySelectorAll('.nav-item .nav-label');
+        navLabels.forEach(label => {
+          if (label.textContent === 'Subscriptions') {
+            label.textContent = 'Contracts';
+            console.log('Updated sidebar menu label to Contracts');
+          }
+        });
       } else {
         console.log('No special scenario detected');
       }

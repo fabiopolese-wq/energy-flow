@@ -1,0 +1,184 @@
+/* Index Page (Marketplace All Offers) Styles */
+
+/* Sidebar Override for Index */
+.sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 200px !important;
+  height: 100vh !important;
+  background: white !important;
+  border-right: 1px solid #e5e7eb !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 100 !important;
+  transition: width 0.3s ease !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sidebar .brand {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  padding: 16px 12px !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.sidebar .icons,
+.sidebar .sidebar-bottom {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.sidebar .sidebar-bottom {
+  margin-top: auto !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.sidebar .nav-item {
+  width: 100% !important;
+  padding: 12px 12px !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #6b7280 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  min-height: 44px !important;
+}
+
+.sidebar .nav-item:hover {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+}
+
+.sidebar .nav-item.active {
+  background: #6144DD !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.sidebar .nav-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  text-align: center !important;
+}
+
+.sidebar .nav-label {
+  font-size: 14px !important;
+  font-weight: inherit !important;
+}
+
+.sidebar .collapse-btn {
+  margin-top: 8px !important;
+  background: #f3f4f6 !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  z-index: 999 !important;
+  position: relative !important;
+  border: 2px solid transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.sidebar .collapse-btn:hover {
+  background: #e5e7eb !important;
+  color: #374151 !important;
+  border-color: #6144DD !important;
+  transform: scale(1.02) !important;
+}
+
+.sidebar .collapse-btn:active {
+  background: #d1d5db !important;
+  transform: scale(0.98) !important;
+}
+
+/* Collapsed State */
+.sidebar.collapsed {
+  width: 60px !important;
+}
+
+.sidebar.collapsed .brand {
+  font-size: 10px !important;
+  padding: 16px 8px !important;
+}
+
+.sidebar.collapsed .nav-item {
+  padding: 12px 0 !important;
+  justify-content: center !important;
+  width: 60px !important;
+}
+
+.sidebar.collapsed .nav-label {
+  display: none !important;
+}
+
+.sidebar.collapsed .nav-icon {
+  font-size: 18px !important;
+}
+
+.sidebar.collapsed .collapse-btn {
+  transform: rotate(180deg) !important;
+}
+
+/* Container Adjustments */
+.container {
+  margin-left: 200px !important;
+  padding: 20px !important;
+  transition: margin-left 0.3s ease !important;
+  max-width: none !important;
+}
+
+.sidebar.collapsed ~ .container {
+  margin-left: 60px !important;
+}
+
+/* Index Container - Centered like other pages */
+.index-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    z-index: 1000 !important;
+    background: white !important;
+  }
+  
+  .sidebar.collapsed {
+    width: 60px !important;
+  }
+  
+  .container {
+    margin-left: 0 !important;
+    padding: 15px !important;
+  }
+  
+  .sidebar.collapsed ~ .container {
+    margin-left: 60px !important;
+  }
+  
+  .index-container {
+    padding: 0 16px;
+  }
+}

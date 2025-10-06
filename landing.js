@@ -41,6 +41,9 @@ class ScenarioRouter {
         case 'bg':
           this.startBgFlow();
           break;
+        case 'openrent':
+          this.startOpenRentFlow();
+          break;
         case 'existing':
           this.startExistingCustomerFlow();
           break;
@@ -66,8 +69,13 @@ class ScenarioRouter {
 
   // Scenario 1: Standard Flow
   startStandardFlow() {
-    // Start from marketplace overview
-    window.location.href = 'marketplace.html?scenario=standard';
+    // Store scenario in sessionStorage for persistence across all pages
+    sessionStorage.setItem('currentScenario', 'standard');
+    console.log('Stored standard scenario in sessionStorage');
+    
+    // Start from checklist page
+    console.log('Navigating to checklist.html?scenario=standard');
+    window.location.href = 'checklist.html?scenario=standard';
   }
 
   // Scenario 2: E.ON Flow
@@ -76,8 +84,9 @@ class ScenarioRouter {
     sessionStorage.setItem('currentScenario', 'eon');
     console.log('Stored E.ON scenario in sessionStorage');
     
-    // Start from marketplace overview with E.ON branding
-    window.location.href = 'marketplace.html?scenario=eon';
+    // Start from checklist page with E.ON branding
+    console.log('Navigating to checklist.html?scenario=eon');
+    window.location.href = 'checklist.html?scenario=eon';
   }
 
   // Scenario 3: British Gas Flow
@@ -87,10 +96,23 @@ class ScenarioRouter {
     sessionStorage.setItem('currentScenario', 'bg');
     console.log('Stored BG scenario in sessionStorage');
     
-    // Start from marketplace overview with BG branding
-    console.log('Navigating to marketplace.html?scenario=bg');
-    window.location.href = 'marketplace.html?scenario=bg';
+    // Start from checklist page with BG branding
+    console.log('Navigating to checklist.html?scenario=bg');
+    window.location.href = 'checklist.html?scenario=bg';
   }
+
+  // Scenario 4: Open Rent Flow
+  startOpenRentFlow() {
+    console.log('Starting Open Rent flow...');
+    // Store scenario in sessionStorage for persistence across all pages
+    sessionStorage.setItem('currentScenario', 'openrent');
+    console.log('Stored Open Rent scenario in sessionStorage');
+    
+    // Start from checklist page with Open Rent branding
+    console.log('Navigating to checklist.html?scenario=openrent');
+    window.location.href = 'checklist.html?scenario=openrent';
+  }
+
 
   // Scenario 3: Existing Customer
   startExistingCustomerFlow() {
@@ -204,6 +226,16 @@ window.ScenarioUtils = {
       const updated = { ...data, ...updates };
       sessionStorage.setItem('currentScenario', JSON.stringify(updated));
     }
+  },
+
+  // Check if we're in E.ON scenario
+  isEonScenario() {
+    return this.getCurrentScenario() === 'eon';
+  },
+
+  // Check if we're in BG scenario
+  isBgScenario() {
+    return this.getCurrentScenario() === 'bg';
   }
 };
 

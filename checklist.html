@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving Checklist - Just Move In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="checklist.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">Just Move In</div>
+    <nav class="icons">
+      <button class="nav-item active" onclick="window.location.href='checklist.html'">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='marketplace.html'">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Marketplace</span>
+      </button>
+      <button class="nav-item" onclick="window.location.href='subscriptions.html'">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Subscriptions</span>
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-item" onclick="window.location.href='index-landing.html'">
+        <span class="nav-icon">↩️</span>
+        <span class="nav-label">Return</span>
+      </button>
+      <button class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Profile</span>
+      </button>
+      <button class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </button>
+      <button class="nav-item collapse-btn" onclick="toggleSidebar()">
+        <span class="nav-icon">◀</span>
+        <span class="nav-label">Collapse</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Moving Checklist</h1>
+      <p class="page-subtitle">Everything you need to do before moving to your new home</p>
+    </header>
+
+    <!-- Checklist Content -->
+    <div class="checklist-container">
+      <!-- Energy Section -->
+      <section class="checklist-section">
+        <div class="section-header">
+          <div class="section-icon">⚡</div>
+          <h2>Energy & Utilities</h2>
+          <div class="section-progress">
+            <span class="progress-text">0/2 completed</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="checklist-items">
+          <div class="checklist-item" data-category="energy">
+            <div class="item-checkbox">
+              <input type="checkbox" id="energy-1" />
+              <label for="energy-1"></label>
+            </div>
+            <div class="item-content">
+              <h3>Set up electricity supply</h3>
+              <p>Choose your electricity provider and tariff</p>
+              <div class="item-actions">
+                <button class="action-btn primary" onclick="window.location.href='marketplace.html'">
+                  Browse Energy Plans
+                </button>
+              </div>
+              <div class="item-details" style="display: none;">
+                <div class="details-content">
+                  <h4>Provider Details</h4>
+                  <div class="provider-summary">
+                    <div class="provider-info">
+                      <div class="provider-logo ovo">OVO</div>
+                      <div class="provider-plan">OVO 1 Year Fixed</div>
+                    </div>
+                    <div class="provider-details">
+                      <div class="detail-row">
+                        <span class="detail-label">Unit Rate:</span>
+                        <span class="detail-value">24.5p/kWh</span>
+                      </div>
+                      <div class="detail-row">
+                        <span class="detail-label">Standing Charge:</span>
+                        <span class="detail-value">45.2p/day</span>
+                      </div>
+                      <div class="detail-row">
+                        <span class="detail-label">Contract Length:</span>
+                        <span class="detail-value">12 months</span>
+                      </div>
+                      <div class="detail-row">
+                        <span class="detail-label">Exit Fee:</span>
+                        <span class="detail-value">£50</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checklist-item" data-category="energy">
+            <div class="item-checkbox">
+              <input type="checkbox" id="energy-3" />
+              <label for="energy-3"></label>
+            </div>
+            <div class="item-content">
+              <h3>Take meter readings</h3>
+              <p>Record gas and electricity meter readings on moving day</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Record Readings
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Internet & TV Section -->
+      <section class="checklist-section">
+        <div class="section-header">
+          <div class="section-icon">📺</div>
+          <h2>Internet & TV</h2>
+          <div class="section-progress">
+            <span class="progress-text">0/2 completed</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="checklist-items">
+          <div class="checklist-item" data-category="internet">
+            <div class="item-checkbox">
+              <input type="checkbox" id="internet-1" />
+              <label for="internet-1"></label>
+            </div>
+            <div class="item-content">
+              <h3>Set up broadband</h3>
+              <p>Choose your internet provider and package</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Coming Soon
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checklist-item" data-category="internet">
+            <div class="item-checkbox">
+              <input type="checkbox" id="internet-2" />
+              <label for="internet-2"></label>
+            </div>
+            <div class="item-content">
+              <h3>Set up TV services</h3>
+              <p>Choose your TV package or streaming services</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Coming Soon
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Council & Services Section -->
+      <section class="checklist-section">
+        <div class="section-header">
+          <div class="section-icon">🏛️</div>
+          <h2>Council & Services</h2>
+          <div class="section-progress">
+            <span class="progress-text">0/3 completed</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="checklist-items">
+          <div class="checklist-item" data-category="council">
+            <div class="item-checkbox">
+              <input type="checkbox" id="council-1" />
+              <label for="council-1"></label>
+            </div>
+            <div class="item-content">
+              <h3>Register for council tax</h3>
+              <p>Register with your local council for council tax</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Register Online
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checklist-item" data-category="council">
+            <div class="item-checkbox">
+              <input type="checkbox" id="council-2" />
+              <label for="council-2"></label>
+            </div>
+            <div class="item-content">
+              <h3>Set up waste collection</h3>
+              <p>Arrange waste and recycling collection</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Arrange Collection
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checklist-item" data-category="council">
+            <div class="item-checkbox">
+              <input type="checkbox" id="council-3" />
+              <label for="council-3"></label>
+            </div>
+            <div class="item-content">
+              <h3>Update electoral roll</h3>
+              <p>Register to vote at your new address</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Register to Vote
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Insurance Section -->
+      <section class="checklist-section">
+        <div class="section-header">
+          <div class="section-icon">🛡️</div>
+          <h2>Insurance</h2>
+          <div class="section-progress">
+            <span class="progress-text">0/2 completed</span>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="checklist-items">
+          <div class="checklist-item" data-category="insurance">
+            <div class="item-checkbox">
+              <input type="checkbox" id="insurance-1" />
+              <label for="insurance-1"></label>
+            </div>
+            <div class="item-content">
+              <h3>Home insurance</h3>
+              <p>Get buildings and contents insurance</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Coming Soon
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="checklist-item" data-category="insurance">
+            <div class="item-checkbox">
+              <input type="checkbox" id="insurance-2" />
+              <label for="insurance-2"></label>
+            </div>
+            <div class="item-content">
+              <h3>Update car insurance</h3>
+              <p>Update your car insurance with new address</p>
+              <div class="item-actions">
+                <button class="action-btn secondary">
+                  Coming Soon
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- FAB -->
+  <button class="fab" aria-label="Ask Jay">✦</button>
+
+  <script src="scenario-utils.js"></script>
+  <script src="script.js"></script>
+  <script src="checklist.js"></script>
+</body>
+</html>

@@ -363,6 +363,9 @@
       } else if (window.ScenarioUtils.isBgScenario()) {
         console.log('BG SCENARIO DETECTED - Applying branding');
         window.ScenarioUtils.applyBgBrandingToCheckout();
+      } else if (window.ScenarioUtils.isOpenRentScenario()) {
+        console.log('OPEN RENT SCENARIO DETECTED - Applying branding');
+        window.ScenarioUtils.applyOpenRentBrandingToCheckout();
       } else {
         console.log('No special scenario detected');
       }

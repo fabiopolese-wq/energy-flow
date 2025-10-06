@@ -1138,4 +1138,84 @@ function setupShowAllOffersButton() {
   });
 }
 
+function setupMobileTouchHandlers() {
+  // Add touch-friendly interactions
+  const touchElements = document.querySelectorAll('.select, .pill-compact, .scenario-btn, .details');
+  
+  touchElements.forEach(element => {
+    element.addEventListener('touchstart', (e) => {
+      element.style.transform = 'scale(0.98)';
+      element.style.transition = 'transform 0.1s ease';
+    });
+    
+    element.addEventListener('touchend', (e) => {
+      element.style.transform = 'scale(1)';
+    });
+  });
+}
+
+function optimizeForMobile() {
+  // Reduce animations for better mobile performance
+  const style = document.createElement('style');
+  style.textContent = `
+    .mobile-experience * {
+      animation-duration: 0.2s !important;
+      transition-duration: 0.2s !important;
+    }
+    
+    .mobile-experience .shimmer {
+      animation-duration: 0.5s !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 init();
+
+// Global sidebar toggle function
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('collapsed');
+    
+    // Save state to localStorage
+    const isCollapsed = sidebar.classList.contains('collapsed');
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
+    
+    // Update button icon
+    const collapseBtn = sidebar.querySelector('.collapse-btn');
+    if (collapseBtn) {
+      const icon = collapseBtn.querySelector('.nav-icon');
+      if (icon) {
+        icon.textContent = isCollapsed ? '▶' : '◀';
+      }
+    }
+  }
+}
+
+// Initialize sidebar state on page load
+function initializeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    // Check saved state
+    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    
+    if (isCollapsed) {
+      sidebar.classList.add('collapsed');
+    } else {
+      sidebar.classList.remove('collapsed');
+    }
+    
+    // Update button icon
+    const collapseBtn = sidebar.querySelector('.collapse-btn');
+    if (collapseBtn) {
+      const icon = collapseBtn.querySelector('.nav-icon');
+      if (icon) {
+        icon.textContent = isCollapsed ? '▶' : '◀';
+      }
+    }
+  }
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', initializeSidebar);

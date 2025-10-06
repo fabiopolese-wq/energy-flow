@@ -9,7 +9,14 @@ class SubscriptionsPage {
     const urlParams = new URLSearchParams(window.location.search);
     const scenario = urlParams.get('scenario');
     
-    console.log('Subscriptions - Current scenario:', scenario); // Debug log
+    // Fallback to sessionStorage if URL parameter is not available
+    const scenarioFromStorage = sessionStorage.getItem('currentScenario');
+    const finalScenario = scenario || scenarioFromStorage;
+    
+    console.log('Subscriptions - Current scenario:', finalScenario); // Debug log
+    console.log('URL scenario:', scenario); // Debug log
+    console.log('Storage scenario:', scenarioFromStorage); // Debug log
+    console.log('URL:', window.location.href); // Debug log
     console.log('Available elements:', {
       mainLogo: !!document.querySelector('.provider-logo .logo-text'),
       planNames: document.querySelectorAll('.detail-value').length,
@@ -17,7 +24,7 @@ class SubscriptionsPage {
       modalPlanName: !!document.querySelector('.service-info h4')
     });
     
-    if (scenario === 'eon') {
+    if (finalScenario === 'eon') {
       console.log('Applying E.ON branding to subscriptions page'); // Debug log
       
       // Replace the entire provider section with E.ON content
@@ -74,8 +81,258 @@ class SubscriptionsPage {
         `;
         console.log('Replaced success modal service card with E.ON content');
       }
+    } else if (finalScenario === 'openrent') {
+      console.log('OPEN RENT SCENARIO DETECTED - Applying branding');
+      this.applyOpenRentBranding();
+    } else {
+      console.log('No special scenario detected, using default OVO branding');
     }
   }
+
+  applyOpenRentBranding() {
+    console.log('Applying Open Rent branding to subscriptions page');
+    
+    // Debug: Check if elements exist
+    console.log('Elements found:', {
+      pageTitle: !!document.querySelector('.page-header h1'),
+      pageSubtitle: !!document.querySelector('.page-subtitle'),
+      providerSection: !!document.querySelector('.provider-section'),
+      planDetails: !!document.querySelector('.plan-details'),
+      subscriptionCard: !!document.querySelector('.subscription-card'),
+      navLabel: !!document.querySelector('.nav-item .nav-label')
+    });
+    
+    // Change page title to "Active Contracts" for Open Rent scenario
+    const pageTitle = document.querySelector('.page-header h1');
+    if (pageTitle) {
+      pageTitle.textContent = 'Active Contracts';
+      console.log('Updated page title to Active Contracts');
+    } else {
+      console.error('Page title not found');
+    }
+    
+    const pageSubtitle = document.querySelector('.page-subtitle');
+    if (pageSubtitle) {
+      pageSubtitle.textContent = 'Find your active contracts here';
+      console.log('Updated page subtitle');
+    } else {
+      console.error('Page subtitle not found');
+    }
+    
+    // Update sidebar menu label to "Contracts"
+    const navLabels = document.querySelectorAll('.nav-item .nav-label');
+    navLabels.forEach(label => {
+      if (label.textContent === 'Subscriptions') {
+        label.textContent = 'Contracts';
+        console.log('Updated sidebar menu label to Contracts');
+      }
+    });
+    
+    // Completely refactor the active services section for side-by-side layout
+    this.refactorActiveServicesSection();
+    
+    // Replace success modal service card
+    const serviceCard = document.querySelector('.service-card');
+    if (serviceCard) {
+      serviceCard.innerHTML = `
+        <div class="service-logo">
+          <span class="logo-text openrent">OR</span>
+        </div>
+        <div class="service-info">
+          <h4>Open Rent Standard</h4>
+          <div class="service-price">£3,350.00 <span class="price-period">/ month</span></div>
+          <div class="service-term">12 Month Fixed Term</div>
+        </div>
+      `;
+      console.log('Replaced success modal service card with Open Rent content');
+    } else {
+      console.error('Service card not found');
+    }
+  }
+
+  refactorActiveServicesSection() {
+    console.log('Refactoring active services section for side-by-side layout');
+    
+    // Find the active services section
+    const activeServicesSection = document.querySelector('.active-services');
+    if (!activeServicesSection) {
+      console.error('Active services section not found');
+      return;
+    }
+    
+    // Clear existing content
+    activeServicesSection.innerHTML = '<h2 class="section-title">Active contracts</h2>';
+    
+    // Create cards container
+    const cardsContainer = document.createElement('div');
+    cardsContainer.className = 'cards-container';
+    cardsContainer.style.cssText = `
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      width: 100%;
+    `;
+    
+    // Create energy card
+    const energyCard = document.createElement('div');
+    energyCard.className = 'subscription-card energy-card';
+    energyCard.style.cssText = `
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      margin-bottom: 0;
+    `;
+    energyCard.innerHTML = `
+      <!-- Upper Section with Gray Background -->
+      <div class="card-upper-section">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="lock-icon">
+            <span>🔒</span>
+          </div>
+          <div class="status-badges">
+            <span class="status-badge new">New</span>
+            <span class="status-badge active">● Active</span>
+          </div>
+        </div>
+
+        <!-- Provider Logo -->
+        <div class="provider-section">
+          <div class="provider-logo">
+            <span class="logo-text eon">e.on</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Details -->
+      <div class="plan-details">
+        <div class="detail-row">
+          <span class="detail-label">Your plan</span>
+          <span class="detail-value">EON Next Gust 12 m</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Payment method</span>
+          <span class="detail-value">Direct debit</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Elapsed period</span>
+          <span class="detail-value">0 months</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Contract ends</span>
+          <span class="detail-value">Sep 2026</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Monthly cost</span>
+          <span class="detail-value">£50.71</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-info">
+          <span class="progress-label">Contract Progress</span>
+          <span class="progress-text">0/12 months</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    `;
+    
+    // Create rental contract card
+    const rentalCard = document.createElement('div');
+    rentalCard.className = 'subscription-card rental-contract-card';
+    rentalCard.style.cssText = `
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      margin-bottom: 0;
+    `;
+    rentalCard.innerHTML = `
+      <!-- Upper Section with Gray Background -->
+      <div class="card-upper-section">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="lock-icon">
+            <span>🏠</span>
+          </div>
+          <div class="status-badges">
+            <span class="status-badge new">New</span>
+            <span class="status-badge active">● Active</span>
+          </div>
+        </div>
+
+        <!-- Provider Logo -->
+        <div class="provider-section">
+          <div class="provider-logo">
+            <span class="logo-text rent-contract">Rent Contract</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Details -->
+      <div class="plan-details">
+        <div class="detail-row">
+          <span class="detail-label">Property</span>
+          <span class="detail-value">123 Main Street, London</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Monthly rent</span>
+          <span class="detail-value">£3,350.00</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Deposit</span>
+          <span class="detail-value">£3,350.00</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Contract start</span>
+          <span class="detail-value">Thursday, 9 October 2025</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Fixed term</span>
+          <span class="detail-value">12 Months</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Break clause</span>
+          <span class="detail-value">After 4 months</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <div class="progress-info">
+          <span class="progress-label">Contract Progress</span>
+          <span class="progress-text">0/12 months</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="card-actions" style="display: flex; gap: 12px; padding: 0 20px 20px 20px;">
+        <button class="action-btn secondary" onclick="alert('View full contract')" style="background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 24px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; flex: 1; transition: all 0.2s ease;">
+          View Contract
+        </button>
+        <button class="action-btn secondary" onclick="alert('Manage rental')" style="background: white; color: #374151; border: 1px solid #d1d5db; border-radius: 24px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; flex: 1; transition: all 0.2s ease;">
+          Manage Rental
+        </button>
+      </div>
+    `;
+    
+    // Add cards to container
+    cardsContainer.appendChild(energyCard);
+    cardsContainer.appendChild(rentalCard);
+    
+    // Add container to active services section
+    activeServicesSection.appendChild(cardsContainer);
+    
+    console.log('Refactored active services section with side-by-side layout');
+  }
+
 
   init() {
     this.setupFAB();
@@ -93,6 +350,19 @@ class SubscriptionsPage {
     setTimeout(() => {
       this.handleScenarioBranding();
     }, 200);
+    
+    // Additional fallback for Open Rent scenario
+    setTimeout(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const scenario = urlParams.get('scenario');
+      const scenarioFromStorage = sessionStorage.getItem('currentScenario');
+      const finalScenario = scenario || scenarioFromStorage;
+      
+      if (finalScenario === 'openrent') {
+        console.log('Open Rent fallback branding applied');
+        this.applyOpenRentBranding();
+      }
+    }, 500);
   }
 
   // Setup FAB functionality

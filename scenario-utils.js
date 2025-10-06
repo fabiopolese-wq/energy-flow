@@ -31,6 +31,12 @@ window.ScenarioUtils = {
     return scenario === 'bg';
   },
   
+  // Check if current scenario is Open Rent
+  isOpenRentScenario() {
+    const scenario = this.getCurrentScenario();
+    return scenario === 'openrent';
+  },
+  
   // Apply E.ON branding to marketplace page
   applyEonBrandingToMarketplace() {
     console.log('Applying E.ON branding to marketplace page');
@@ -284,6 +290,114 @@ window.ScenarioUtils = {
     if (modalPlanName) {
       modalPlanName.textContent = 'BG Home Energy';
       console.log('Updated modal plan name to BG Home Energy');
+    }
+  },
+
+  // Apply Open Rent branding to marketplace page
+  applyOpenRentBrandingToMarketplace() {
+    console.log('Applying Open Rent branding to marketplace page');
+    
+    const providerLogo = document.querySelector('.provider-logo .logo-text');
+    const providerName = document.querySelector('.provider-name');
+    const exploreBtn = document.getElementById('exploreOffersBtn');
+    
+    // Keep OVO as the provider for Open Rent flow
+    if (providerLogo) {
+      providerLogo.textContent = 'ovo';
+      providerLogo.className = 'logo-text ovo';
+      console.log('Updated provider logo to OVO for Open Rent flow');
+    }
+    
+    if (providerName) {
+      providerName.textContent = 'OVO Energy - Standard Variable Tariff';
+      console.log('Updated provider name to OVO Energy - Standard Variable Tariff');
+    }
+    
+    if (exploreBtn) {
+      exploreBtn.textContent = 'Explore other offers with OVO';
+      console.log('Updated explore button text to Explore other offers with OVO');
+    }
+  },
+
+  // Apply Open Rent branding to detailed comparison page
+  applyOpenRentBrandingToComparison() {
+    console.log('Applying Open Rent branding to comparison page');
+    
+    // Update template for Open Rent scenario
+    const template = document.getElementById('detailsTemplate');
+    if (template) {
+      template.innerHTML = `
+        <div class="details-panel">
+          <div class="details-body">
+            <h4>Compare Open Rent plans</h4>
+            <div class="compare">
+              <div class="col">
+                <div class="logo openrent">OR</div>
+                <div class="title">Open Rent Standard 12m</div>
+                <div class="attribute"><span class="attr-label">Pricing type:</span><span class="attr-value">Fixed (locked for 12 months)</span></div>
+                <div class="attribute"><span class="attr-label">Monthly rent:</span><span class="attr-value">£3,350.00</span></div>
+                <div class="attribute"><span class="attr-label">Deposit:</span><span class="attr-value">£3,350.00</span></div>
+                <div class="attribute"><span class="attr-label">Break clause:</span><span class="attr-value">After 4 months</span></div>
+              </div>
+              <div class="col">
+                <div class="logo openrent">OR</div>
+                <div class="title">Open Rent Premium 24m</div>
+                <div class="attribute"><span class="attr-label">Pricing type:</span><span class="attr-value">Fixed (locked for 24 months)</span></div>
+                <div class="attribute"><span class="attr-label">Monthly rent:</span><span class="attr-value">£3,200.00</span></div>
+                <div class="attribute"><span class="attr-label">Deposit:</span><span class="attr-value">£3,200.00</span></div>
+                <div class="attribute"><span class="attr-label">Break clause:</span><span class="attr-value">After 6 months</span></div>
+              </div>
+            </div>
+            <div class="about-section">
+              <h4>About Open Rent</h4>
+              <div class="about-content">
+                <p>Open Rent is the UK's leading online letting agent, making renting simple and transparent. We provide comprehensive rental services including property management, tenant screening, and contract handling. Open Rent is committed to making the rental process fair and accessible for both landlords and tenants.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      console.log('Updated details template for Open Rent');
+    }
+  },
+
+  // Apply Open Rent branding to checkout page
+  applyOpenRentBrandingToCheckout() {
+    console.log('Applying Open Rent branding to checkout page');
+    
+    // Update plan logo
+    const planLogo = document.querySelector('.plan-logo .logo-text');
+    if (planLogo) {
+      planLogo.textContent = 'OR';
+      planLogo.className = 'logo-text openrent';
+      console.log('Updated plan logo to Open Rent');
+    }
+  },
+
+  // Apply Open Rent branding to subscriptions page
+  applyOpenRentBrandingToSubscriptions() {
+    console.log('Applying Open Rent branding to subscriptions page');
+    
+    // Update main subscription card logo
+    const mainLogo = document.querySelector('.provider-logo .logo-text');
+    if (mainLogo) {
+      mainLogo.textContent = 'OR';
+      mainLogo.className = 'logo-text openrent';
+      console.log('Updated main logo to Open Rent');
+    }
+    
+    // Update success modal elements
+    const modalLogo = document.querySelector('.service-logo .logo-text');
+    if (modalLogo) {
+      modalLogo.textContent = 'OR';
+      modalLogo.className = 'logo-text openrent';
+      console.log('Updated modal logo to Open Rent');
+    }
+    
+    const modalPlanName = document.querySelector('.service-info h4');
+    if (modalPlanName) {
+      modalPlanName.textContent = 'Open Rent Standard';
+      console.log('Updated modal plan name to Open Rent Standard');
     }
   }
 };
